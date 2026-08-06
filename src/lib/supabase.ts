@@ -21,7 +21,7 @@ export const createServerClient = () => {
   return createSupabaseClient(supabaseUrl, supabaseKey);
 };
 
-let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null;
+let supabaseInstance: ReturnType<typeof createClient> | null = null;
 
 export const supabase = (() => {
   if (!supabaseInstance && supabaseUrl && supabaseAnonKey) {
