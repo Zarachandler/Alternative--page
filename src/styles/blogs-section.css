@@ -1,0 +1,223 @@
+.blog-ui-section {
+  width: 100%;
+  background: #ffffff;
+  padding: 60px 20px;
+}
+
+.blog-ui-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===========================
+   Heading
+=========================== */
+
+.blog-ui-header h2 {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(30px, 3.8vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #17154b;
+  padding-top: 50px;
+  margin: 0 0 36px;
+}
+
+/* ===========================
+   Top Bar
+=========================== */
+
+.blog-ui-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.blog-ui-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.blog-ui-left h3 {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #17154b;
+}
+
+/* ===========================
+   Arrow Buttons
+=========================== */
+
+.blog-ui-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.blog-ui-arrow-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #dfe8ff;
+  color: #17154b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blog-ui-arrow-btn:hover {
+  background: #4c67ff;
+  color: #ffffff;
+}
+
+/* ===========================
+   Read More
+=========================== */
+
+.blog-ui-readmore {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-family: "Outfit", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #17154b;
+  transition: 0.3s;
+}
+
+.blog-ui-readmore:hover {
+  color: #4c67ff;
+}
+
+/* ===========================
+   Grid
+=========================== */
+
+.blog-ui-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 26px;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.blog-ui-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.blog-ui-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ===========================
+   Image
+=========================== */
+
+.blog-ui-image-wrap {
+  width: 100%;
+  height: 180px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #edf2ff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.blog-ui-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-ui-card:hover .blog-ui-image {
+  transform: scale(1.05);
+}
+
+/* ===========================
+   Blog Title
+=========================== */
+
+.blog-ui-card-title {
+  margin-top: 14px;
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #17154b;
+  transition: color 0.3s ease;
+}
+
+.blog-ui-card:hover .blog-ui-card-title {
+  color: #4c67ff;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width: 992px) {
+
+  .blog-ui-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .blog-ui-image-wrap {
+    height: 170px;
+  }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width: 768px) {
+
+  .blog-ui-section {
+    padding: 50px 16px;
+  }
+
+  .blog-ui-header h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+    padding-top: 30px;
+  }
+
+  .blog-ui-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .blog-ui-left h3 {
+    font-size: 22px;
+  }
+
+  .blog-ui-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .blog-ui-image-wrap {
+    height: 190px;
+  }
+
+  .blog-ui-card-title {
+    font-size: 15px;
+  }
+
+}
