@@ -1,7 +1,3 @@
-/* ==========================================================================
-   PRICING PAGE - PREMIUM REDESIGN
-   ========================================================================== */
-
 :root {
   --pp-bg-main: #FFFFFF;
   --pp-bg-card-neutral: #FFFFFF;
@@ -3053,4 +3049,279 @@ h1, h2, h3, h4, h5 {
 .pricing-page-wrapper .pricing-page-container,
 .pricing-page-wrapper .pricing-page-container * {
   font-family: var(--pp-shared-font-family);
+}
+
+
+/* ============================================================
+   FINAL PRICING CARD ALIGNMENT
+   Agency cards use only the requested light + dark colors.
+   Left/right cards sit lower; middle card remains aligned at top.
+   ============================================================ */
+
+.pricing-hero {
+  padding-top: 115px;
+}
+
+.reply-pricing-shell {
+  padding-top: 20px;
+}
+
+.reply-pricing-header {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency,
+.reply-pricing-grid--agencies .reply-plan-card--agency-featured,
+.reply-pricing-grid--agencies .reply-plan-card--agency-enterprise {
+  background: #f7fbff;
+  border: 1px solid #4860aa;
+  border-radius: 9px;
+  box-shadow: none;
+  color: #4860aa;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency {
+  transform: translateY(30px);
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency-featured {
+  transform: translateY(0);
+  border: 3px solid #4860aa;
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency-enterprise {
+  transform: translateY(30px);
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency-featured .reply-plan-badge,
+.reply-pricing-grid--agencies .reply-plan-card--agency-enterprise .reply-plan-mini-badge {
+  background: #4860aa;
+  color: #ffffff;
+  border: 0;
+  border-radius: 7px 7px 0 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 12px;
+  margin: 0;
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency .reply-plan-name {
+  margin-top: 8px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-card--agency-featured .reply-plan-name,
+.reply-pricing-grid--agencies .reply-plan-card--agency-enterprise .reply-plan-name {
+  margin-top: 62px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-name {
+  color: #4860aa;
+  margin-bottom: 18px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-description {
+  min-height: 72px;
+  color: #4860aa;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-price-row {
+  margin-top: 22px;
+  margin-bottom: 12px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-start,
+.reply-pricing-grid--agencies .reply-plan-price,
+.reply-pricing-grid--agencies .reply-plan-per,
+.reply-pricing-grid--agencies .reply-plan-billed,
+.reply-pricing-grid--agencies .reply-plan-chapter,
+.reply-pricing-grid--agencies .reply-plan-feature {
+  color: #4860aa;
+}
+
+.reply-pricing-grid--agencies .reply-plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.reply-pricing-grid--agencies .reply-plan-feature {
+  line-height: 1.45;
+}
+
+.reply-pricing-grid--agencies .reply-plan-button--primary,
+.reply-pricing-grid--agencies .reply-plan-button--secondary {
+  background: #4860aa;
+  color: #ffffff;
+  border: 0;
+  box-shadow: none;
+  margin-top: 24px;
+}
+
+@media (max-width: 1100px) {
+  .reply-pricing-grid--agencies .reply-plan-card--agency,
+  .reply-pricing-grid--agencies .reply-plan-card--agency-featured,
+  .reply-pricing-grid--agencies .reply-plan-card--agency-enterprise {
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .pricing-hero {
+    padding-top: 85px;
+  }
+
+  .reply-pricing-grid--agencies .reply-plan-card--agency,
+  .reply-pricing-grid--agencies .reply-plan-card--agency-featured,
+  .reply-pricing-grid--agencies .reply-plan-card--agency-enterprise {
+    transform: none;
+    min-height: auto;
+  }
+
+  .reply-pricing-grid--agencies .reply-plan-card--agency-featured .reply-plan-name,
+  .reply-pricing-grid--agencies .reply-plan-card--agency-enterprise .reply-plan-name {
+    margin-top: 62px;
+  }
+}
+
+/* ============================================================
+   FINAL AI SDR CARD ALIGNMENT
+   Same positioning, spacing, and two-color styling as Agencies.
+   Left/right cards sit lower; middle card stays in position.
+   ============================================================ */
+
+.reply-pricing-grid--ai .reply-plan-card--ai,
+.reply-pricing-grid--ai .reply-plan-card--ai-featured,
+.reply-pricing-grid--ai .reply-plan-card--ai-enterprise {
+  background: #f7fbff;
+  border: 1px solid #4860aa;
+  border-radius: 9px;
+  box-shadow: none;
+  color: #4860aa;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left card - move down */
+.reply-pricing-grid--ai .reply-plan-card--ai {
+  transform: translateY(30px);
+}
+
+/* Middle card - keep in the original position */
+.reply-pricing-grid--ai .reply-plan-card--ai-featured {
+  transform: translateY(0);
+  border: 3px solid #4860aa;
+}
+
+/* Right card - move down */
+.reply-pricing-grid--ai .reply-plan-card--ai-enterprise {
+  transform: translateY(30px);
+}
+
+/* All AI SDR badges use the same dark color */
+.reply-pricing-grid--ai .reply-plan-card--ai .reply-plan-badge,
+.reply-pricing-grid--ai .reply-plan-card--ai-featured .reply-plan-badge,
+.reply-pricing-grid--ai .reply-plan-card--ai-enterprise .reply-plan-mini-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #4860aa;
+  color: #ffffff;
+  border: 0;
+  border-radius: 7px 7px 0 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 12px;
+  margin: 0;
+  z-index: 2;
+}
+
+/* Give every card's title enough space below its badge */
+.reply-pricing-grid--ai .reply-plan-card--ai .reply-plan-name,
+.reply-pricing-grid--ai .reply-plan-card--ai-featured .reply-plan-name,
+.reply-pricing-grid--ai .reply-plan-card--ai-enterprise .reply-plan-name {
+  margin-top: 62px;
+  margin-bottom: 18px;
+  color: #4860aa;
+}
+
+/* Description spacing */
+.reply-pricing-grid--ai .reply-plan-description {
+  min-height: 72px;
+  margin-bottom: 14px;
+  color: #4860aa;
+  line-height: 1.45;
+}
+
+/* Price spacing and color */
+.reply-pricing-grid--ai .reply-plan-price-row {
+  margin-top: 22px;
+  margin-bottom: 12px;
+}
+
+.reply-pricing-grid--ai .reply-plan-start,
+.reply-pricing-grid--ai .reply-plan-price,
+.reply-pricing-grid--ai .reply-plan-per,
+.reply-pricing-grid--ai .reply-plan-billed,
+.reply-pricing-grid--ai .reply-plan-chapter,
+.reply-pricing-grid--ai .reply-plan-feature {
+  color: #4860aa;
+}
+
+/* Buttons */
+.reply-pricing-grid--ai .reply-plan-button--primary,
+.reply-pricing-grid--ai .reply-plan-button--secondary {
+  background: #4860aa;
+  color: #ffffff;
+  border: 0;
+  box-shadow: none;
+  margin-top: 24px;
+}
+
+/* Feature spacing */
+.reply-pricing-grid--ai .reply-plan-chapter {
+  margin-top: 26px;
+  margin-bottom: 12px;
+}
+
+.reply-pricing-grid--ai .reply-plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.reply-pricing-grid--ai .reply-plan-feature {
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  .reply-pricing-grid--ai .reply-plan-card--ai,
+  .reply-pricing-grid--ai .reply-plan-card--ai-featured,
+  .reply-pricing-grid--ai .reply-plan-card--ai-enterprise {
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .reply-pricing-grid--ai .reply-plan-card--ai,
+  .reply-pricing-grid--ai .reply-plan-card--ai-featured,
+  .reply-pricing-grid--ai .reply-plan-card--ai-enterprise {
+    transform: none;
+    min-height: auto;
+  }
 }

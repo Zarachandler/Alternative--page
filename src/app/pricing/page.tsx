@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -230,120 +231,225 @@ export default function PricingPage() {
               </div>
             </div>
 
-            <div className="reply-pricing-grid">
-              <div className="reply-plan-card reply-plan-card--blue">
-                <div className="reply-plan-name">Email Volume</div>
-                <div className="reply-plan-description">Send high-volume outbound emails without hitting inbox limits or manual bottlenecks.</div>
-
-                <div className="reply-plan-price-row">
-                  <span className="reply-plan-start">Starts from</span>
-                  <div className="reply-plan-price"><span>$</span>{emailVolumePrice}</div>
-                  <div className="reply-plan-per">per user /month</div>
-                  <div className="reply-plan-billed">Billed annually</div>
-                </div>
-
-                <div className="reply-price-bar-wrap">
-                  <div
-                    className="reply-price-bar-track"
-                    style={{ '--reply-slider-progress': `${((emailContacts - 1000) / 9000) * 100}%` } as React.CSSProperties}
-                  >
-                    <input
-                      className="reply-price-bar-slider"
-                      type="range"
-                      min={1000}
-                      max={10000}
-                      step={1000}
-                      value={emailContacts}
-                      onChange={(event) => setEmailContacts(Number(event.target.value))}
-                      aria-label="Adjust active contacts"
-                    />
+            <div className={`reply-pricing-grid reply-pricing-grid--${activeTab}`}>
+              {activeTab === 'outreach' && (
+                <>
+                  <div className="reply-plan-card reply-plan-card--blue">
+                    <div className="reply-plan-name">Email Volume</div>
+                    <div className="reply-plan-description">Send high-volume outbound emails without hitting inbox limits or manual bottlenecks.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price"><span>$</span>{emailVolumePrice}</div>
+                      <div className="reply-plan-per">per user /month</div>
+                      <div className="reply-plan-billed">Billed annually</div>
+                    </div>
+                    <div className="reply-price-bar-wrap">
+                      <div className="reply-price-bar-track" style={{ '--reply-slider-progress': `${((emailContacts - 1000) / 9000) * 100}%` } as React.CSSProperties}>
+                        <input className="reply-price-bar-slider" type="range" min={1000} max={10000} step={1000} value={emailContacts} onChange={(event) => setEmailContacts(Number(event.target.value))} aria-label="Adjust active contacts" />
+                      </div>
+                      <div className="reply-price-bar-label">
+                        <span>{emailContacts.toLocaleString()} active contacts/month</span>
+                        <span className="reply-price-info">i</span>
+                      </div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--secondary">Sign up for Free</button>
+                    <div className="reply-plan-chapter">Channels</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Email Automation = mailboxes</div>
+                      <div className="reply-plan-feature">LinkedIn Automation $69 /mo/acc</div>
+                      <div className="reply-plan-feature">Calls & SMS Automation $29 /mo/acc</div>
+                    </div>
+                    <div className="reply-plan-chapter">Features</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Email warmup</div>
+                      <div className="reply-plan-feature">Unlimited emails</div>
+                      <div className="reply-plan-feature">50 live data credits/month</div>
+                      <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
+                      <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
+                    </div>
                   </div>
-                  <div className="reply-price-bar-label">
-                    <span>{emailContacts.toLocaleString()} active contacts/month</span>
-                    <span className="reply-price-info">i</span>
+
+                  <div className="reply-plan-card reply-plan-card--pink">
+                    <div className="reply-plan-badge">Best value for teams</div>
+                    <div className="reply-plan-name">Multichannel</div>
+                    <div className="reply-plan-description">All-inclusive outreach via email, LinkedIn, SMS, and Phone at one fixed price.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price reply-plan-price--pink"><span>$</span>89</div>
+                      <div className="reply-plan-per">per user /month</div>
+                      <div className="reply-plan-billed">Billed annually</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Start 14-day trial</button>
+                    <div className="reply-plan-chapter">Channels</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Email Automation</div>
+                      <div className="reply-plan-feature">LinkedIn Automation</div>
+                      <div className="reply-plan-feature">Calls & SMS Automation</div>
+                      <div className="reply-plan-feature">WhatsApp (Semi-Automation)</div>
+                      <div className="reply-plan-feature">Any Channel via Zapier Step</div>
+                    </div>
+                    <div className="reply-plan-chapter">Features</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Unlimited active contacts</div>
+                      <div className="reply-plan-feature">Email warmup</div>
+                      <div className="reply-plan-feature">Unlimited emails</div>
+                      <div className="reply-plan-feature">50 live data credits/month</div>
+                      <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
+                      <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
+                      <div className="reply-plan-feature">Onboarding with the CSM</div>
+                      <div className="reply-plan-feature">Team Performance Report</div>
+                      <div className="reply-plan-feature">Channel Efficiency Report</div>
+                      <div className="reply-plan-feature">Export CSV stats</div>
+                    </div>
                   </div>
-                </div>
 
-                <button type="button" className="reply-plan-button reply-plan-button--secondary">Sign up for Free</button>
+                  <div className="reply-plan-card reply-plan-card--purple">
+                    <div className="reply-plan-mini-badge">AI-powered outreach</div>
+                    <div className="reply-plan-name">AI Assistant</div>
+                    <div className="reply-plan-description">Use AI to research prospects, personalize messages, and accelerate your daily sales workflow.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price reply-plan-price--purple"><span>$</span>199</div>
+                      <div className="reply-plan-per">/month</div>
+                    </div>
+                    <div className="reply-plan-features reply-plan-features--compact">
+                      <div className="reply-plan-feature">AI prospect research</div>
+                      <div className="reply-plan-feature">Smart personalization</div>
+                      <div className="reply-plan-feature">AI email generation</div>
+                      <div className="reply-plan-feature">Intent-based targeting</div>
+                      <div className="reply-plan-feature">Automated follow-ups</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Try AI Assistant</button>
+                  </div>
+                </>
+              )}
 
-                <div className="reply-plan-chapter">Channels</div>
-                <div className="reply-plan-features">
-                  <div className="reply-plan-feature">Email Automation = mailboxes</div>
-                  <div className="reply-plan-feature">LinkedIn Automation $69 /mo/acc</div>
-                  <div className="reply-plan-feature">Calls & SMS Automation $29 /mo/acc</div>
-                </div>
+              {activeTab === 'ai' && (
+                <>
+                  <div className="reply-plan-card reply-plan-card--ai">
+                    <div className="reply-plan-badge reply-plan-badge--ai">AI SALES AGENT</div>
+                    <div className="reply-plan-name">AI SDR Starter</div>
+                    <div className="reply-plan-description">Launch an AI-powered SDR that researches prospects and starts personalized conversations automatically.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price reply-plan-price--purple"><span>$</span>500</div>
+                      <div className="reply-plan-per">/month</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Start with AI SDR</button>
+                    <div className="reply-plan-chapter">AI Capabilities</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Automated prospect research</div>
+                      <div className="reply-plan-feature">AI-generated personalization</div>
+                      <div className="reply-plan-feature">Buyer intent detection</div>
+                      <div className="reply-plan-feature">Automated email sequences</div>
+                      <div className="reply-plan-feature">Smart reply handling</div>
+                    </div>
+                  </div>
 
-                <div className="reply-plan-chapter">Features</div>
-                <div className="reply-plan-features">
-                  <div className="reply-plan-feature">Email warmup</div>
-                  <div className="reply-plan-feature">Unlimited emails</div>
-                  <div className="reply-plan-feature">50 live data credits/month</div>
-                  <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
-                  <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
-                </div>
-              </div>
+                  <div className="reply-plan-card reply-plan-card--ai-featured">
+                    <div className="reply-plan-badge reply-plan-badge--ai">MOST POPULAR</div>
+                    <div className="reply-plan-name">AI SDR Growth</div>
+                    <div className="reply-plan-description">Scale your outbound sales with an AI SDR that handles prospecting, outreach, follow-ups, and qualification.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price reply-plan-price--purple"><span>$</span>999</div>
+                      <div className="reply-plan-per">/month</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Launch AI SDR</button>
+                    <div className="reply-plan-chapter">Everything in Starter +</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Unlimited prospect research</div>
+                      <div className="reply-plan-feature">Multi-step AI campaigns</div>
+                      <div className="reply-plan-feature">Automated qualification</div>
+                      <div className="reply-plan-feature">AI reply management</div>
+                      <div className="reply-plan-feature">CRM activity updates</div>
+                      <div className="reply-plan-feature">Performance analytics</div>
+                    </div>
+                  </div>
 
-              <div className="reply-plan-card reply-plan-card--pink">
-                <div className="reply-plan-badge">Best value for teams</div>
-                <div className="reply-plan-name">Multichannel</div>
-                <div className="reply-plan-description">All-inclusive outreach via email, LinkedIn, SMS, and Phone at one fixed price.</div>
+                  <div className="reply-plan-card reply-plan-card--ai-enterprise">
+                    <div className="reply-plan-mini-badge">Fully managed</div>
+                    <div className="reply-plan-name">AI SDR Enterprise</div>
+                    <div className="reply-plan-description">A fully managed AI sales operation designed for teams that need continuous pipeline generation at scale.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Custom</span>
+                      <div className="reply-plan-price reply-plan-price--purple">Custom</div>
+                      <div className="reply-plan-per">pricing</div>
+                    </div>
+                    <div className="reply-plan-features reply-plan-features--compact">
+                      <div className="reply-plan-feature">Dedicated AI sales workflow</div>
+                      <div className="reply-plan-feature">Custom prospect segments</div>
+                      <div className="reply-plan-feature">Advanced intent signals</div>
+                      <div className="reply-plan-feature">Custom CRM integrations</div>
+                      <div className="reply-plan-feature">Dedicated onboarding</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Talk to Sales</button>
+                  </div>
+                </>
+              )}
 
-                <div className="reply-plan-price-row">
-                  <span className="reply-plan-start">Starts from</span>
-                  <div className="reply-plan-price reply-plan-price--pink"><span>$</span>89</div>
-                  <div className="reply-plan-per">per user /month</div>
-                  <div className="reply-plan-billed">Billed annually</div>
-                </div>
+              {activeTab === 'agencies' && (
+                <>
+                  <div className="reply-plan-card reply-plan-card--agency">
+                    <div className="reply-plan-name">Agency Starter</div>
+                    <div className="reply-plan-description">Manage client outreach from one workspace with simple campaign controls and reporting.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price"><span>$</span>149</div>
+                      <div className="reply-plan-per">/month</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--secondary">Start Agency Plan</button>
+                    <div className="reply-plan-chapter">Agency Features</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Multiple client campaigns</div>
+                      <div className="reply-plan-feature">Shared team workspace</div>
+                      <div className="reply-plan-feature">Campaign templates</div>
+                      <div className="reply-plan-feature">Client-ready reporting</div>
+                      <div className="reply-plan-feature">Email automation</div>
+                    </div>
+                  </div>
 
-                <button type="button" className="reply-plan-button reply-plan-button--primary">Start 14-day trial</button>
+                  <div className="reply-plan-card reply-plan-card--agency-featured">
+                    <div className="reply-plan-badge">BEST FOR GROWING AGENCIES</div>
+                    <div className="reply-plan-name">Agency Growth</div>
+                    <div className="reply-plan-description">Run multiple client accounts, automate outreach, and give every client clear campaign performance visibility.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Starts from</span>
+                      <div className="reply-plan-price reply-plan-price--pink"><span>$</span>399</div>
+                      <div className="reply-plan-per">/month</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Grow Your Agency</button>
+                    <div className="reply-plan-chapter">Everything in Starter +</div>
+                    <div className="reply-plan-features">
+                      <div className="reply-plan-feature">Unlimited client campaigns</div>
+                      <div className="reply-plan-feature">Advanced client reporting</div>
+                      <div className="reply-plan-feature">White-label reporting</div>
+                      <div className="reply-plan-feature">Team permissions</div>
+                      <div className="reply-plan-feature">Client performance dashboard</div>
+                      <div className="reply-plan-feature">Priority support</div>
+                    </div>
+                  </div>
 
-                <div className="reply-plan-chapter">Channels</div>
-                <div className="reply-plan-features">
-                  <div className="reply-plan-feature">Email Automation</div>
-                  <div className="reply-plan-feature">LinkedIn Automation</div>
-                  <div className="reply-plan-feature">Calls & SMS Automation</div>
-                  <div className="reply-plan-feature">WhatsApp (Semi-Automation)</div>
-                  <div className="reply-plan-feature">Any Channel via Zapier Step</div>
-                </div>
-
-                <div className="reply-plan-chapter">Features</div>
-                <div className="reply-plan-features">
-                  <div className="reply-plan-feature">Unlimited active contacts</div>
-                  <div className="reply-plan-feature">Email warmup</div>
-                  <div className="reply-plan-feature">Unlimited emails</div>
-                  <div className="reply-plan-feature">50 live data credits/month</div>
-                  <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
-                  <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
-                  <div className="reply-plan-feature">Onboarding with the CSM</div>
-                  <div className="reply-plan-feature">Team Performance Report</div>
-                  <div className="reply-plan-feature">Channel Efficiency Report</div>
-                  <div className="reply-plan-feature">Export CSV stats</div>
-                </div>
-              </div>
-
-              <div className="reply-plan-card reply-plan-card--purple">
-                <div className="reply-plan-mini-badge">or join the AI Side</div>
-                <div className="reply-plan-name">Hire Jason AI SDR</div>
-                <div className="reply-plan-description">One Fully Automated Solution to help you generate 10x More Opportunities</div>
-
-                <div className="reply-plan-price-row">
-                  <span className="reply-plan-start">Starts from</span>
-                  <div className="reply-plan-price reply-plan-price--purple"><span>$</span>500</div>
-                  <div className="reply-plan-per">/month</div>
-                </div>
-
-                <div className="reply-plan-features reply-plan-features--compact">
-                  <div className="reply-plan-feature">24/7 Operations</div>
-                  <div className="reply-plan-feature">Realtime contacts search</div>
-                  <div className="reply-plan-feature">Intent signals</div>
-                  <div className="reply-plan-feature">AI personalization</div>
-                  <div className="reply-plan-feature">AI-generated responses</div>
-                </div>
-
-                <a href="https://calendly.com/reply-sales-team/ai-sdr-demo" className="reply-plan-button reply-plan-button--primary" target="_blank" rel="noreferrer">
-                  Hire Jason AI
-                </a>
-              </div>
+                  <div className="reply-plan-card reply-plan-card--agency-enterprise">
+                    <div className="reply-plan-mini-badge">Built for scale</div>
+                    <div className="reply-plan-name">Agency Enterprise</div>
+                    <div className="reply-plan-description">A scalable sales engagement setup for agencies managing large client portfolios and high-volume campaigns.</div>
+                    <div className="reply-plan-price-row">
+                      <span className="reply-plan-start">Custom</span>
+                      <div className="reply-plan-price">Custom</div>
+                      <div className="reply-plan-per">pricing</div>
+                    </div>
+                    <div className="reply-plan-features reply-plan-features--compact">
+                      <div className="reply-plan-feature">Unlimited client workspaces</div>
+                      <div className="reply-plan-feature">White-label experience</div>
+                      <div className="reply-plan-feature">Advanced permissions</div>
+                      <div className="reply-plan-feature">Custom integrations</div>
+                      <div className="reply-plan-feature">Dedicated account support</div>
+                    </div>
+                    <button type="button" className="reply-plan-button reply-plan-button--primary">Contact Sales</button>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="reply-pricing-compare-row">
@@ -580,7 +686,7 @@ export default function PricingPage() {
                 <span>High Performance</span>
                 <small>2025</small>
               </div>
-              <div className="reply-proof-badge reply-proof-badge--white">
+              <div className="reply-proof-badge reply-proof-badge--white">x
                 <span className="reply-proof-badge-mark">G</span>
                 <span>High Performance</span>
                 <small>2025</small>
