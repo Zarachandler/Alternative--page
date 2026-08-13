@@ -30,6 +30,22 @@ const addOnTabs: { id: AddOnTab; label: string }[] = [
 
 const getAddOnPrice = (credits: number) => Math.round((credits / 2500) * 219);
 
+const comparisonFeatures = [
+  ['Multichannel Automation', false, true],
+  ['Unlimited Mailboxes', true, true],
+  ['Unlimited Monthly Emails', false, true],
+  ['Unlimited Contacts Storage', false, true],
+  ['Advanced Reporting', false, true],
+  ['Inflated open rates', true, false],
+  ['AI SDR', false, true],
+] as const;
+
+const comparisonCompanies = [
+  ['⚡', 'Instantly', 'instantly'], ['↗', 'Smartlead', 'smartlead'], ['✳', 'Apollo', 'apollo'],
+  ['L', 'Lemlist', 'lemlist'], ['O', 'Outreach.io', 'outreach'], ['S.', 'Salesloft', 'salesloft'],
+  ['✣', 'Hubspot', 'hubspot'], ['◌', 'Expandi', 'expandi'], ['M', 'Mixmax', 'mixmax'],
+] as const;
+
 const salesEngagementFeatures = [
   ['Unlimited sequences', 'check', 'check', 'check', 'check'],
   ['Mailboxes', 'Unlimited', '5 mailboxes / user', 'Unlimited', 'Unlimited'],
@@ -565,6 +581,7 @@ export default function PricingPage() {
                           value={aiCredits}
                           onChange={(event) => setAiCredits(Number(event.target.value))}
                           aria-label="Adjust credit amount"
+                          style={{ '--pricing-addon-progress': `${((aiCredits - 200) / 9800) * 100}%` } as React.CSSProperties}
                         />
                       </div>
 
@@ -590,7 +607,36 @@ export default function PricingPage() {
               every reply with built-in analytics.
             </p>
 
-            <div className="reply-compare-table-wrap">
+            <div className="reply-comparison-panel">
+              <div className="reply-comparison-sidebar">
+                <div className="reply-comparison-panel-heading">Compare With</div>
+                <div className="reply-comparison-search"><span>⌕</span> Search</div>
+                <div className="reply-comparison-company-grid">
+                  {comparisonCompanies.map(([mark, name, variant]) => (
+                    <div className="reply-comparison-company" key={name}>
+                      <span className={`reply-comparison-company-mark reply-comparison-company-mark--${variant}`}>{mark}</span>
+                      <span>{name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="reply-comparison-data">
+                <div className="reply-comparison-data-head">
+                  <span>Feature</span>
+                  <span className="reply-comparison-brand reply-comparison-brand--instantly"><b>ϟ</b> Instantly</span>
+                  <span className="reply-comparison-brand reply-comparison-brand--reply"><b /> Reply</span>
+                </div>
+                {comparisonFeatures.map(([feature, instantly, reply]) => (
+                  <div className="reply-comparison-data-row" key={feature}>
+                    <span>{feature}</span>
+                    <span className={`reply-comparison-status reply-comparison-status--${instantly ? 'yes' : 'no'}`}>{instantly ? '✓' : '×'}</span>
+                    <span className={`reply-comparison-status reply-comparison-status--${reply ? 'yes' : 'no'}`}>{reply ? '✓' : '×'}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="reply-compare-table-wrap reply-compare-table-wrap--legacy">
               <div className="reply-compare-table">
                 <div className="reply-compare-header-row">
                   <div className="reply-compare-header-cell reply-compare-header-cell--left">Compare With</div>
@@ -674,6 +720,28 @@ export default function PricingPage() {
         </section>
 
         <section className="reply-proof-section pp-animate-reveal">
+          <div className="reply-proof-reference" aria-label="Reply trust and ratings">
+            <div className="reply-proof-reference-top">
+              <div className="reply-proof-reference-group">
+                <div className="reply-proof-reference-badges reply-proof-reference-badges--g2">
+                  <span>G2<br /><b>High<br />Performer</b><small>WINTER<br />2025</small></span>
+                  <span>G2<br /><b>High<br />Performer</b><small>WINTER<br />2025</small></span>
+                  <span className="reply-proof-reference-badge--large">G2<br /><b>High<br />Performer</b><small>Small Business<br />WINTER 2025</small></span>
+                  <span>G2<br /><b>High<br />Performer</b><small>WINTER<br />2025</small></span>
+                </div>
+                <div className="reply-proof-reference-heading">Top-rated on G2</div>
+              </div>
+              <div className="reply-proof-reference-group">
+                <div className="reply-proof-reference-badges reply-proof-reference-badges--trust">
+                  <span className="reply-proof-reference-soc">SOC 2</span><span className="reply-proof-reference-gdpr">★<br />GDPR</span><span className="reply-proof-reference-delivery">✓<small>ADVANCED EMAIL<br />DELIVERABILITY</small></span>
+                </div>
+                <div className="reply-proof-reference-heading">Trustworthy and reliable</div>
+              </div>
+            </div>
+            <div className="reply-proof-reference-stats">
+              <div><b>10+</b><span>years helping sales<br />teams sell smarter</span></div><div><b>3,000+</b><span>companies worldwide</span></div><div><b>4.6/5</b><span>rating on G2</span></div><div><b>1,448</b><span>reviews on G2</span></div>
+            </div>
+          </div>
           <div className="reply-proof-shell">
             <div className="reply-proof-badges">
               <div className="reply-proof-badge reply-proof-badge--white">
