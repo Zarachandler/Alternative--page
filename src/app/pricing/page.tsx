@@ -19,9 +19,150 @@ const AIStarIcon = () => (
   </svg>
 );
 
+type AddOnTab = 'channel' | 'ai' | 'validation';
+
+const addOnTabs: { id: AddOnTab; label: string }[] = [
+  { id: 'channel', label: 'Channel Add-ons' },
+  { id: 'ai', label: 'AI & Live Data' },
+  { id: 'validation', label: 'Email Validation' },
+];
+
+const getAddOnPrice = (credits: number) => Math.round((credits / 2500) * 219);
+
+const salesEngagementFeatures = [
+  ['Unlimited sequences', 'check', 'check', 'check', 'check'],
+  ['Mailboxes', 'Unlimited', '5 mailboxes / user', 'Unlimited', 'Unlimited'],
+  ['Email warm-ups in Mailtoaster.ai', 'Unlimited', '5 mailboxes / user', 'Unlimited', 'Unlimited'],
+  ['Email Sequences', 'check', 'check', 'check', 'check'],
+  ['Centralized Inbox', 'check', 'check', 'check', 'check'],
+  ['Semi-automated LinkedIn tasks', 'check', 'check', 'check', 'check'],
+  ['LinkedIn automation', '$69/month per account', 'check', 'check', '$69/month per account'],
+  ['LinkedIn AI voice messages', 'check', 'check', 'check', 'check'],
+  ['AI variables', 'check', 'check', 'check', 'check'],
+  ['Calls & SMS', 'no', 'check', 'check', '$29/month per user'],
+  ['WhatsApp tasks', 'check', 'check', 'check', 'check'],
+  ['Task flows', 'check', 'check', 'check', 'check'],
+  ['Manual emails', 'check', 'check', 'check', 'check'],
+  ['Workflow automation (triggers)', 'check', 'check', 'check', 'check'],
+  ['Conditional sequences', 'check', 'check', 'check', 'check'],
+  ['Meeting scheduler', 'check', 'check', 'check', 'check'],
+  ['Email and sequence templates', 'check', 'check', 'check', 'check'],
+  ['AI email assistant', 'check', 'check', 'check', 'check'],
+  ['Gmail & Chrome extensions', 'check', 'check', 'check', 'check'],
+] as const;
+
+const liveDataFeatures = [
+  ['Data credits / month', '50 included', '50 included', 'Included', '50 included'],
+  ['More Data Credits', 'Paid Packages', 'Paid Packages', 'Paid Packages', 'Paid Packages'],
+  ['Verified Emails', 'check', 'check', 'check', 'check'],
+  ['Advanced filters', 'check', 'check', 'check', 'check'],
+  ['Buyer Intent Signals', 'check', 'check', 'check', 'check'],
+  ['Technology filter', 'check', 'check', 'check', 'check'],
+  ['CSV Export', 'check', 'check', 'check', 'check'],
+  ['CRM Integrations', 'check', 'check', 'check', 'check'],
+] as const;
+
+const deliverabilityFeatures = [
+  ['Gsuite, Microsoft & SMTP', 'check', 'check', 'check', 'check'],
+  ['SPF, DKIM, DMARC, MX', 'check', 'check', 'check', 'check'],
+  ['Custom tracking domains', 'check', 'check', 'check', 'check'],
+  ['Email warm-ups in Mailtoaster.ai', 'check', 'check', 'check', 'check'],
+  ['Google Postmaster integration', 'check', 'check', 'check', 'check'],
+  ['Email health check', 'check', 'check', 'check', 'check'],
+  ['Inbox rotation', 'check', 'check', 'check', 'check'],
+  ['Custom fields', 'check', 'check', 'check', 'check'],
+  ['Liquid syntax', 'check', 'check', 'check', 'check'],
+  ['ESP matching', 'check', 'check', 'check', 'check'],
+  ['Global block list', 'check', 'check', 'check', 'check'],
+] as const;
+
+const integrationFeatures = [
+  ['Hubspot', 'check', 'check', 'check', 'check'],
+  ['Salesforce', 'check', 'check', 'check', 'check'],
+  ['Pipedrive', 'check', 'check', 'check', 'check'],
+  ['Copper, Zendesk, Close.io', 'check', 'check', 'check', 'check'],
+  ['Zapier, Make & 100+ Integrations', 'check', 'check', 'check', 'check'],
+  ['API', 'check', 'check', 'check', 'check'],
+  ['n8n node', 'check', 'check', 'check', 'check'],
+  ['MCP', 'check', 'check', 'check', 'check'],
+  ['High-volume API & Webhooks', 'check', 'check', 'check', 'check'],
+  ['SOC 1 compliance report', 'no', 'check', 'check', 'check'],
+] as const;
+
+const supportFeatures = [
+  ['Live chat support', 'check', 'check', 'check', 'check'],
+  ['Onboarding with the CSM', 'Included on annual', 'Included on annual', 'Included', 'Included on annual'],
+  ['Deliverability service', 'no', 'no', 'check', 'check'],
+  ['Priority support', 'no', 'check', 'check', 'check'],
+  ['Video content library', 'check', 'check', 'check', 'check'],
+] as const;
+
+const pricingFaqs = [
+  ['What is Reply.io’s sales engagement platform & cold email outreach software?', 'Reply helps teams manage multichannel outreach, automate follow-ups, and keep prospect conversations in one place.'],
+  ['Do you really offer “Unlimited Mailboxes and Warmups”?', 'Yes. Eligible plans include unlimited mailbox connections and email warm-up features as shown in the plan comparison.'],
+  ['What is “Active Contacts”?', 'Active contacts are the prospects currently being reached through your campaigns during the billing period.'],
+  ['What is “Unlimited Emails Monthly”?', 'It means there is no monthly email-send cap from the platform. Your sending volume should still follow mailbox and deliverability best practices.'],
+  ['What is “Unlimited contact storage”?', 'You can keep and organize your contact records without a storage limit in your selected plan.'],
+  ['Can I integrate Reply.io with CRMs & other tools I’m using?', 'Yes. Reply.io supports CRM connections and integrations with the tools your team uses every day.'],
+  ['How can I get started with Reply.io?', 'Start a free trial, connect your mailbox, and build your first outreach sequence.'],
+  ['What can I try during the 14-day free trial?', 'You can explore the core outreach, automation, and collaboration features available in your selected plan.'],
+  ['Can I get a demo of Reply.io?', 'Yes. Contact the sales team to arrange a product demo tailored to your workflow.'],
+  ['What’s AI SDR by Reply.io?', 'AI SDR is Reply.io’s AI-assisted solution for researching prospects, personalizing outreach, and helping manage replies.'],
+  ['Can I get help with my technical setup & onboarding?', 'Yes. Support and onboarding options are available based on your plan.'],
+  ['Considering switching to Reply?', 'Our team can help you evaluate Reply.io and plan a smooth transition from your current workflow.'],
+  ['Are there any limits to contact storage?', 'Contact storage is unlimited on plans that include the Unlimited contact storage feature.'],
+  ['Are you an AI agent looking for Reply.io pricing?', 'Visit the pricing page or contact our team for information on the plan that fits your needs.'],
+] as const;
+
+function ReplyFeatureCard({
+  title,
+  icon,
+  variant,
+  features,
+}: {
+  title: string;
+  icon: string;
+  variant: string;
+  features: ReadonlyArray<readonly string[]>;
+}) {
+  return (
+    <div className="reply-feature-card">
+      <div className={`reply-feature-card-header reply-feature-card-header--${variant}`}>
+        <span className={`reply-feature-card-icon reply-feature-card-icon--${variant}`}>{icon}</span>
+        <span>{title}</span>
+      </div>
+      <div className="reply-feature-card-table">
+        {features.map(([feature, ...plans]) => (
+          <div className="reply-feature-card-row" key={feature}>
+            <div className="reply-feature-card-cell reply-feature-card-cell--label">{feature}</div>
+            {plans.map((plan, index) => (
+              <div className="reply-feature-card-cell" key={`${feature}-${index}`}>
+                {plan === 'check' ? (
+                  <span className="reply-sales-engagement-check">✓</span>
+                ) : plan === 'no' ? (
+                  <span className="reply-sales-engagement-check reply-sales-engagement-check--no">×</span>
+                ) : (
+                  plan
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>('outreach');
+  const [activeAddOn, setActiveAddOn] = useState<AddOnTab>('channel');
+  const [aiCredits, setAiCredits] = useState(2500);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const currentAddOnPrice = getAddOnPrice(aiCredits);
+  const [emailContacts, setEmailContacts] = useState(5000);
+  const emailVolumePrice = Math.round(89 + ((emailContacts - 1000) / 9000) * 70);
 
   return (
     <div className="pricing-page-wrapper">
@@ -31,385 +172,825 @@ export default function PricingPage() {
         
         {/* HERO SECTION */}
         <section className="pricing-hero pp-animate-reveal">
-          <div className="pricing-eyebrow">360Airo Pricing</div>
-          <h1 className="pricing-hero-heading">
-            Find the <span className="pp-hero-gradient">Perfect Plan</span> for Your Outreach Goals
-          </h1>
-          <p className="pricing-hero-desc">
-            Each 360Airo plan comes with built-in access to our full suite of AI-powered tools — including email warmup, AI automation, LinkedIn outreach, prospect CRM, and reports & analytics.
-          </p>
-
-          <div className="pp-controls-container">
-            {/* TABS */}
-            <div className="pp-tabs" data-active={activeTab}>
-              <div className="pp-tab-slider"></div>
-              <div 
-                className={`pp-tab ${activeTab === 'outreach' ? 'active' : ''}`}
-                onClick={() => setActiveTab('outreach')}
-              >
-                Sales Outreach
-              </div>
-              <div 
-                className={`pp-tab ${activeTab === 'ai' ? 'active' : ''}`}
-                onClick={() => setActiveTab('ai')}
-              >
-                AI SDR <span className="pp-tab-badge">New</span>
-              </div>
-              <div 
-                className={`pp-tab ${activeTab === 'agencies' ? 'active' : ''}`}
-                onClick={() => setActiveTab('agencies')}
-              >
-                Agencies
-              </div>
+          <div className="reply-pricing-shell">
+            <div className="reply-pricing-header">
+              <span className="reply-pricing-highlight">Crush</span>
+              <span className="reply-pricing-title"> your sales quota</span>
             </div>
 
-            {/* TOGGLE & MICRO RECOMMENDATION */}
-            <div className="pp-billing-wrapper">
-              <div className="pp-billing-toggle">
-                <span 
-                  className={`pp-toggle-label ${!isYearly ? 'active' : ''}`}
-                  onClick={() => setIsYearly(false)}
+            <div className="reply-pricing-controls">
+              <div className="reply-pricing-tabs" data-active={activeTab}>
+                <button
+                  className={`reply-pricing-tab ${activeTab === 'outreach' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('outreach')}
+                  type="button"
                 >
-                  Monthly
-                </span>
-                
-                <div 
-                  className="pp-toggle-switch" 
-                  data-yearly={isYearly}
-                  onClick={() => setIsYearly(!isYearly)}
+                  Sales Outreach
+                </button>
+                <button
+                  className={`reply-pricing-tab ${activeTab === 'ai' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('ai')}
+                  type="button"
                 >
-                  <div className="pp-toggle-thumb" />
-                </div>
-                
-                <span 
-                  className={`pp-toggle-label ${isYearly ? 'active' : ''}`}
-                  onClick={() => setIsYearly(true)}
+                  AI SDR
+                </button>
+                <button
+                  className={`reply-pricing-tab ${activeTab === 'agencies' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('agencies')}
+                  type="button"
                 >
-                  Annually
-                </span>
-                
-                <span className="pp-yearly-badge">Save up to 17%</span>
+                  Agencies
+                </button>
               </div>
-              <div className="pp-trust-note">Flexible plans. Upgrade, downgrade, or cancel anytime.</div>
-            </div>
 
-            {/* Smart Recommendation */}
-            <div className="pp-smart-recommendation pp-animate-reveal delay-100">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pp-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <div>Not sure where to start? <span>Growth</span> is best for teams launching multichannel campaigns.</div>
-            </div>
-
-          </div>
-        </section>
-
-        {/* PRICING CARDS */}
-                <section className="pricing-grid">
-          {/* CARD 1: Free */}
-          <div className="pp-card pp-animate-reveal delay-100">
-            <div className="pp-card-inner">
-              <h3 className="pp-card-name">Free</h3>
-              <p className="pp-card-desc">For individuals starting with outbound email</p>
-              
-              <div className="pp-card-price-wrap">
-                <div className="pp-card-price-period">Starting at</div>
-                <div className="pp-card-price">
-                  <span style={{fontSize: 24}}>$</span>0
-                </div>
-                <div className="pp-card-price-subtext">per month</div>
-              </div>
-              
-              <Link href="/contact-us" className="pp-btn pp-btn-outline">Start Free Trial</Link>
-              
-              <div className="pp-card-divider"></div>
-              
-              <div className="pp-feature-group">
-                <div className="pp-feature-group-title">Free Features</div>
-                <ul className="pp-feature-list">
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited email sending</li>
-                  <li className="pp-feature-item"><CheckIcon /> 1,000 email contacts</li>
-                  <li className="pp-feature-item"><CheckIcon /> 1 mailbox</li>
-                  <li className="pp-feature-item"><CheckIcon /> 1 user</li>
-                  <li className="pp-feature-item"><CheckIcon /> 500 AI personalization credits</li>
-                  <li className="pp-feature-item"><CheckIcon /> Email campaigns</li>
-                  <li className="pp-feature-item"><CheckIcon /> Limited integrations</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2: Starter */}
-          <div className="pp-card pp-animate-reveal delay-100">
-            <div className="pp-card-inner">
-              <h3 className="pp-card-name">Starter</h3>
-              <p className="pp-card-desc">For small outbound teams that need shared tools</p>
-              
-              <div className="pp-card-price-wrap">
-                <div className="pp-card-price-period">Starting at</div>
-                <div className="pp-card-price">
-                  <span style={{fontSize: 24}}>$</span>99
-                </div>
-                <div className="pp-card-price-subtext">per month</div>
-              </div>
-              
-              <Link href="/contact-us" className="pp-btn pp-btn-outline">Start 14-day trial</Link>
-              
-              <div className="pp-card-divider"></div>
-              
-              <div className="pp-feature-group">
-                <div className="pp-feature-group-title">Starter Features</div>
-                <ul className="pp-feature-list">
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited email sending</li>
-                  <li className="pp-feature-item"><CheckIcon /> 5,000 email contacts</li>
-                  <li className="pp-feature-item"><CheckIcon /> 8 mailboxes & 3 users</li>
-                  <li className="pp-feature-item"><CheckIcon /> 3,000 AI credits/mo</li>
-                  <li className="pp-feature-item"><CheckIcon /> 3 LinkedIn seats</li>
-                  <li className="pp-feature-item"><CheckIcon /> 3,000 email verification credits/mo</li>
-                  <li className="pp-feature-item"><CheckIcon /> Unified inbox & Smart scheduler</li>
-                  <li className="pp-feature-item"><CheckIcon /> Email warmup & Inbox rotation</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 3: Pro */}
-          <div className="pp-card pp-card-recommended pp-animate-reveal delay-200">
-            <div className="pp-card-top-bar">Best for growing teams</div>
-            <div className="pp-card-inner">
-              <h3 className="pp-card-name">Pro</h3>
-              <p className="pp-card-desc">For growing teams running advanced outbound workflows</p>
-              
-              <div className="pp-card-price-wrap">
-                <div className="pp-card-price-period">Starting at</div>
-                <div className="pp-card-price">
-                  <span style={{fontSize: 24}}>$</span>299
-                </div>
-                <div className="pp-card-price-subtext">per month</div>
-              </div>
-              
-              <Link href="/contact-us" className="pp-btn pp-btn-solid">Start 14-day trial</Link>
-              
-              <div className="pp-card-divider"></div>
-              
-              <div className="pp-feature-group">
-                <div className="pp-feature-group-title">Pro Features</div>
-                <ul className="pp-feature-list">
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited email sending</li>
-                  <li className="pp-feature-item"><CheckIcon /> 25,000 email contacts</li>
-                  <li className="pp-feature-item"><CheckIcon /> 20 mailboxes & 5 users</li>
-                  <li className="pp-feature-item"><CheckIcon /> 10,000 AI credits/mo</li>
-                  <li className="pp-feature-item"><CheckIcon /> 5 LinkedIn seats</li>
-                  <li className="pp-feature-item"><CheckIcon /> 10,000 email verification credits/mo</li>
-                  <li className="pp-feature-item"><CheckIcon /> Advanced AI & Inbox rotation</li>
-                  <li className="pp-feature-item"><CheckIcon /> Full integrations & A/B testing</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 4: Enterprise */}
-          <div className="pp-card pp-card-ai pp-animate-reveal delay-300">
-            <div className="pp-card-inner">
-              <div className="pp-ai-label"><AIStarIcon /> Unlimited Scale</div>
-              <h3 className="pp-card-name">Enterprise</h3>
-              <p className="pp-card-desc">Custom infrastructure and unlimited scale for large organizations</p>
-              
-              <div className="pp-card-price-wrap">
-                <div className="pp-card-price-period">Custom Pricing</div>
-                <div className="pp-card-price">
-                  <span style={{fontSize: 24, paddingBottom: 10, paddingTop: 10}}>Contact for quote</span>
+              <div className="reply-pricing-billing">
+                <div className="reply-billing-toggle">
+                  <span
+                    className={`reply-toggle-label ${!isYearly ? 'active' : ''}`}
+                    onClick={() => setIsYearly(false)}
+                  >
+                    Annual
+                  </span>
+                  <button
+                    className="reply-toggle-switch"
+                    data-yearly={isYearly}
+                    onClick={() => setIsYearly(!isYearly)}
+                    type="button"
+                    aria-label="Toggle billing cycle"
+                  >
+                    <span className="reply-toggle-thumb" />
+                  </button>
+                  <span
+                    className={`reply-toggle-label ${isYearly ? 'active' : ''}`}
+                    onClick={() => setIsYearly(true)}
+                  >
+                    Monthly
+                  </span>
                 </div>
               </div>
-              
-              <Link href="/contact-us" className="pp-btn pp-btn-white" style={{color: 'var(--pp-bg-navy)'}}>Contact Sales</Link>
-              
-              <div className="pp-card-divider"></div>
-              
-              <div className="pp-feature-group">
-                <div className="pp-feature-group-title">Enterprise Features</div>
-                <ul className="pp-feature-list">
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited users & mailboxes</li>
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited AI personalization</li>
-                  <li className="pp-feature-item"><CheckIcon /> Unlimited LinkedIn seats</li>
-                  <li className="pp-feature-item"><CheckIcon /> Custom voice calling seats</li>
-                  <li className="pp-feature-item"><CheckIcon /> Custom AI models & API access</li>
-                  <li className="pp-feature-item"><CheckIcon /> Dedicated infrastructure</li>
-                  <li className="pp-feature-item"><CheckIcon /> Dedicated account executive</li>
-                </ul>
+            </div>
+
+            <div className="reply-pricing-grid">
+              <div className="reply-plan-card reply-plan-card--blue">
+                <div className="reply-plan-name">Email Volume</div>
+                <div className="reply-plan-description">Send high-volume outbound emails without hitting inbox limits or manual bottlenecks.</div>
+
+                <div className="reply-plan-price-row">
+                  <span className="reply-plan-start">Starts from</span>
+                  <div className="reply-plan-price"><span>$</span>{emailVolumePrice}</div>
+                  <div className="reply-plan-per">per user /month</div>
+                  <div className="reply-plan-billed">Billed annually</div>
+                </div>
+
+                <div className="reply-price-bar-wrap">
+                  <div
+                    className="reply-price-bar-track"
+                    style={{ '--reply-slider-progress': `${((emailContacts - 1000) / 9000) * 100}%` } as React.CSSProperties}
+                  >
+                    <input
+                      className="reply-price-bar-slider"
+                      type="range"
+                      min={1000}
+                      max={10000}
+                      step={1000}
+                      value={emailContacts}
+                      onChange={(event) => setEmailContacts(Number(event.target.value))}
+                      aria-label="Adjust active contacts"
+                    />
+                  </div>
+                  <div className="reply-price-bar-label">
+                    <span>{emailContacts.toLocaleString()} active contacts/month</span>
+                    <span className="reply-price-info">i</span>
+                  </div>
+                </div>
+
+                <button type="button" className="reply-plan-button reply-plan-button--secondary">Sign up for Free</button>
+
+                <div className="reply-plan-chapter">Channels</div>
+                <div className="reply-plan-features">
+                  <div className="reply-plan-feature">Email Automation = mailboxes</div>
+                  <div className="reply-plan-feature">LinkedIn Automation $69 /mo/acc</div>
+                  <div className="reply-plan-feature">Calls & SMS Automation $29 /mo/acc</div>
+                </div>
+
+                <div className="reply-plan-chapter">Features</div>
+                <div className="reply-plan-features">
+                  <div className="reply-plan-feature">Email warmup</div>
+                  <div className="reply-plan-feature">Unlimited emails</div>
+                  <div className="reply-plan-feature">50 live data credits/month</div>
+                  <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
+                  <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
+                </div>
+              </div>
+
+              <div className="reply-plan-card reply-plan-card--pink">
+                <div className="reply-plan-badge">Best value for teams</div>
+                <div className="reply-plan-name">Multichannel</div>
+                <div className="reply-plan-description">All-inclusive outreach via email, LinkedIn, SMS, and Phone at one fixed price.</div>
+
+                <div className="reply-plan-price-row">
+                  <span className="reply-plan-start">Starts from</span>
+                  <div className="reply-plan-price reply-plan-price--pink"><span>$</span>89</div>
+                  <div className="reply-plan-per">per user /month</div>
+                  <div className="reply-plan-billed">Billed annually</div>
+                </div>
+
+                <button type="button" className="reply-plan-button reply-plan-button--primary">Start 14-day trial</button>
+
+                <div className="reply-plan-chapter">Channels</div>
+                <div className="reply-plan-features">
+                  <div className="reply-plan-feature">Email Automation</div>
+                  <div className="reply-plan-feature">LinkedIn Automation</div>
+                  <div className="reply-plan-feature">Calls & SMS Automation</div>
+                  <div className="reply-plan-feature">WhatsApp (Semi-Automation)</div>
+                  <div className="reply-plan-feature">Any Channel via Zapier Step</div>
+                </div>
+
+                <div className="reply-plan-chapter">Features</div>
+                <div className="reply-plan-features">
+                  <div className="reply-plan-feature">Unlimited active contacts</div>
+                  <div className="reply-plan-feature">Email warmup</div>
+                  <div className="reply-plan-feature">Unlimited emails</div>
+                  <div className="reply-plan-feature">50 live data credits/month</div>
+                  <div className="reply-plan-feature">Up to 200 website visitors /mo</div>
+                  <div className="reply-plan-feature">Anti-spam & deliverability suite</div>
+                  <div className="reply-plan-feature">Onboarding with the CSM</div>
+                  <div className="reply-plan-feature">Team Performance Report</div>
+                  <div className="reply-plan-feature">Channel Efficiency Report</div>
+                  <div className="reply-plan-feature">Export CSV stats</div>
+                </div>
+              </div>
+
+              <div className="reply-plan-card reply-plan-card--purple">
+                <div className="reply-plan-mini-badge">or join the AI Side</div>
+                <div className="reply-plan-name">Hire Jason AI SDR</div>
+                <div className="reply-plan-description">One Fully Automated Solution to help you generate 10x More Opportunities</div>
+
+                <div className="reply-plan-price-row">
+                  <span className="reply-plan-start">Starts from</span>
+                  <div className="reply-plan-price reply-plan-price--purple"><span>$</span>500</div>
+                  <div className="reply-plan-per">/month</div>
+                </div>
+
+                <div className="reply-plan-features reply-plan-features--compact">
+                  <div className="reply-plan-feature">24/7 Operations</div>
+                  <div className="reply-plan-feature">Realtime contacts search</div>
+                  <div className="reply-plan-feature">Intent signals</div>
+                  <div className="reply-plan-feature">AI personalization</div>
+                  <div className="reply-plan-feature">AI-generated responses</div>
+                </div>
+
+                <a href="https://calendly.com/reply-sales-team/ai-sdr-demo" className="reply-plan-button reply-plan-button--primary" target="_blank" rel="noreferrer">
+                  Hire Jason AI
+                </a>
+              </div>
+            </div>
+
+            <div className="reply-pricing-compare-row">
+              <a href="#fundamentals" className="reply-pricing-compare-link">
+                See detailed comparison
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="pricing-addon-section pp-animate-reveal">
+          <div className="pricing-addon-shell">
+            <h2 className="pricing-addon-title">Explore Our Add-ons</h2>
+
+            <div className="pricing-addon-panel">
+              <aside className="pricing-addon-sidebar">
+                {addOnTabs.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`pricing-addon-tab ${activeAddOn === item.id ? 'active' : ''}`}
+                    onClick={() => setActiveAddOn(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </aside>
+
+              <div className={`pricing-addon-content ${activeAddOn === 'ai' ? 'pricing-addon-content--ai' : ''}`}>
+                {activeAddOn === 'channel' && (
+                  <>
+                    <h3 className="pricing-addon-heading">Channel Add-ons</h3>
+                    <p className="pricing-addon-copy">
+                      Go beyond email with LinkedIn automation and built-in calling. Send connection requests,
+                      messages, and make calls, all from the same platform.
+                    </p>
+
+                    <button type="button" className="pricing-addon-cta">Start Your Free Trial</button>
+
+                    <div className="pricing-addon-grid">
+                      <div className="pricing-addon-card pricing-addon-card--blue">
+                        <div className="pricing-addon-card-header">LinkedIn</div>
+                        <div className="pricing-addon-card-body">
+                          <p>Automate LinkedIn outreach—send requests, messages, and more to engage prospects.</p>
+                          <div className="pricing-addon-price-wrap">
+                            <span className="pricing-addon-price-symbol">$</span>
+                            <span className="pricing-addon-price">69</span>
+                            <span className="pricing-addon-price-text">per account</span>
+                          </div>
+                          <ul className="pricing-addon-features">
+                            <li>Send connection requests</li>
+                            <li>Send messages and InMails</li>
+                            <li>Send attachments &amp; voice messages</li>
+                            <li>Like posts, follow profiles and endorse skills</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="pricing-addon-card pricing-addon-card--green">
+                        <div className="pricing-addon-card-header">Calls &amp; SMS</div>
+                        <div className="pricing-addon-card-body">
+                          <p>Integrate calls and SMS—send texts, make calls, and track analytics.</p>
+                          <div className="pricing-addon-price-wrap">
+                            <span className="pricing-addon-price-symbol">$</span>
+                            <span className="pricing-addon-price">29</span>
+                            <span className="pricing-addon-price-text">per account</span>
+                          </div>
+                          <ul className="pricing-addon-features">
+                            <li>Build-in dialer</li>
+                            <li>Send automated SMS at scale</li>
+                            <li>Call resolution and transcripts</li>
+                            <li>Leave AI-generated, personalized voice messages</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {(activeAddOn === 'ai' || activeAddOn === 'validation') && (
+                  <>
+                    <h3 className="pricing-addon-heading">
+                      {activeAddOn === 'ai' ? 'AI & Live Data' : 'Email Validation'}
+                    </h3>
+                    <p className="pricing-addon-copy">
+                      {activeAddOn === 'ai'
+                        ? 'Use AI to personalize outreach at scale and power it with live data. Always reach the right people with the right message.'
+                        : 'Validate and clean your lead data in real time so your outreach reaches the correct people with better deliverability and lower bounce risk.'}
+                    </p>
+
+                    <button type="button" className="pricing-addon-cta">Start Your Free Trial</button>
+
+                    <div className="pricing-addon-price-panel">
+                      <div className="pricing-addon-panel-header">
+                        {activeAddOn === 'ai' ? 'AI and Live Data Credits' : 'Email Validation Credits'}
+                      </div>
+
+                      <div className="pricing-addon-price-slider">
+                        <div className="pricing-addon-slider-label">{aiCredits.toLocaleString()} credits</div>
+                        <div className="pricing-addon-scale">
+                          <span>200</span>
+                          <span>500</span>
+                          <span>1000</span>
+                          <span>2500</span>
+                          <span>6000</span>
+                          <span>10000</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={200}
+                          max={10000}
+                          step={50}
+                          value={aiCredits}
+                          onChange={(event) => setAiCredits(Number(event.target.value))}
+                          aria-label="Adjust credit amount"
+                        />
+                      </div>
+
+                      <div className="pricing-addon-monthly-price">
+                        <span className="pricing-addon-price-symbol">$</span>
+                        <span className="pricing-addon-price">{currentAddOnPrice}</span>
+                        <span className="pricing-addon-price-text">per month</span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
         </section>
 
-        {/* SOCIAL PROOF */}
-        <section className="pp-social-proof pp-animate-reveal">
-          <div className="pp-sp-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            Trusted by modern outbound teams
-          </div>
-          <div className="pp-sp-item">
-            <div className="pp-sp-avatars">
-              <div className="pp-sp-avatar" style={{backgroundImage: 'url("https://i.pravatar.cc/100?img=1")', backgroundSize: 'cover'}}></div>
-              <div className="pp-sp-avatar" style={{backgroundImage: 'url("https://i.pravatar.cc/100?img=2")', backgroundSize: 'cover'}}></div>
-              <div className="pp-sp-avatar" style={{backgroundImage: 'url("https://i.pravatar.cc/100?img=3")', backgroundSize: 'cover'}}></div>
-              <div className="pp-sp-avatar" style={{backgroundImage: 'url("https://i.pravatar.cc/100?img=4")', backgroundSize: 'cover'}}></div>
-            </div>
-            <span><strong style={{color: 'var(--pp-text-main)'}}>4.9/5</strong> customer satisfaction</span>
-          </div>
-          <div className="pp-sp-item">
-            <svg className="pp-sp-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            No long-term contracts
-          </div>
-        </section>
+        <section className="reply-compare-section pp-animate-reveal">
+          <div className="reply-compare-shell">
+            <h2 className="reply-compare-title">How does Reply stack up against others?</h2>
+            <p className="reply-compare-subtitle">
+              Reply is perfect for founders, sales teams, and agencies who need results fast and without juggling 5+ tools.
+              Run multichannel campaigns (with AI SDR and under total control), enrich contacts in real time, and track
+              every reply with built-in analytics.
+            </p>
 
-        {/* COMPARE PLANS */}
-        <section className="pp-compare-section">
-          <div className="pp-section-header">
-            <h2 className="pp-section-heading">Compare Plans Side by Side</h2>
-            <p className="pp-section-subtext">See the full feature breakdown to decide the best fit for your outreach scale, team size, and automation needs.</p>
-          </div>
-          
-                    <div className="pp-table-wrapper">
-            <table className="pp-compare-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Starter</th>
-                  <th className="pp-col-highlight">
-                    Pro
-                    <div className="pp-table-badge">Best for growing teams</div>
-                  </th>
-                  <th>Enterprise</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Connected Domains</td>
-                  <td>1</td>
-                  <td className="pp-col-highlight">5</td>
-                  <td>Unlimited</td>
-                </tr>
-                <tr>
-                  <td>Daily Send Limit</td>
-                  <td>100</td>
-                  <td className="pp-col-highlight">1,000</td>
-                  <td>10,000+</td>
-                </tr>
-                <tr>
-                  <td>Sequence Capacity</td>
-                  <td>3</td>
-                  <td className="pp-col-highlight">25</td>
-                  <td>Unlimited</td>
-                </tr>
-                <tr>
-                  <td>AI Automation Tools</td>
-                  <td>Basic</td>
-                  <td className="pp-col-highlight">Advanced</td>
-                  <td>Enterprise</td>
-                </tr>
-                <tr>
-                  <td>CRM Integrations</td>
-                  <td>Limited</td>
-                  <td className="pp-col-highlight">Full</td>
-                  <td>Custom</td>
-                </tr>
-                <tr>
-                  <td>Support Level</td>
-                  <td>Standard</td>
-                  <td className="pp-col-highlight">Priority</td>
-                  <td>Dedicated</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div className="reply-compare-table-wrap">
+              <div className="reply-compare-table">
+                <div className="reply-compare-header-row">
+                  <div className="reply-compare-header-cell reply-compare-header-cell--left">Compare With</div>
+                  <div className="reply-compare-header-cell
+                    reply-compare-header-cell--feature">Feature</div>
+                  <div className="reply-compare-header-cell reply-compare-toggle-cell">
+                    <span className="reply-compare-toggle-pill reply-compare-toggle-pill--muted">Instantly</span>
+                    <span className="reply-compare-toggle-pill reply-compare-toggle-pill--active">Reply</span>
+                  </div>
+                </div>
 
-          <div className="pp-compare-note">
-            Not sure which plan fits your workflow? Compare capabilities by team size, automation needs, and sending scale.
-          </div>
-        </section>
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left">
+                    <span className="reply-compare-search-icon">⌕</span>
+                    <span>Search</span>
+                  </div>
+                  <div className="reply-compare-cell reply-compare-cell--feature">Multichannel Automation</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
 
-        {/* WHAT'S INCLUDED (Deep Navy Option A) */}
-        <section className="pp-included-section">
-          <div className="pp-section-header">
-            <h2 className="pp-section-heading">What's Included in Every Plan</h2>
-            <p className="pp-section-subtext">No matter which plan you choose, every user gets access to the complete suite of 360Airo outreach tools to scale your revenue.</p>
-          </div>
-          
-          <div className="pp-features-grid">
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-              </div>
-              <h4 className="pp-fc-title">Full Dashboard Access</h4>
-              <p className="pp-fc-desc">Manage campaigns, audiences, lead analytics, and account security from one unified dashboard.</p>
-            </div>
-            
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon" style={{color: 'var(--pp-cyan)', backgroundColor: 'rgba(14, 181, 187, 0.1)', borderColor: 'rgba(14, 181, 187, 0.2)'}}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              </div>
-              <h4 className="pp-fc-title">Deliverability Monitoring</h4>
-              <p className="pp-fc-desc">Monitor sender health, warmup activity, inbox placement, and deliverability performance.</p>
-            </div>
-            
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon" style={{color: 'var(--pp-purple)', backgroundColor: 'rgba(193, 90, 230, 0.1)', borderColor: 'rgba(193, 90, 230, 0.2)'}}>
-                <AIStarIcon />
-              </div>
-              <h4 className="pp-fc-title">AI Content Generation</h4>
-              <p className="pp-fc-desc">Create dynamic email sequences, multiple A/B/C/D steps, and semantic AI variables instantly.</p>
-            </div>
-            
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon" style={{color: 'var(--pp-primary)'}}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-              </div>
-              <h4 className="pp-fc-title">Performance Analytics</h4>
-              <p className="pp-fc-desc">Track open rates, replies, bounces, appointments booked, and revenue generated in real time.</p>
-            </div>
-            
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon" style={{color: 'var(--pp-soft-blue)'}}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-              </div>
-              <h4 className="pp-fc-title">Domain Management</h4>
-              <p className="pp-fc-desc">Connect multiple inboxes, buy new domains, and easily configure DNS records directly from the platform.</p>
-            </div>
-            
-            <div className="pp-feature-card">
-              <div className="pp-fc-icon" style={{color: 'var(--pp-light-blue)'}}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              </div>
-              <h4 className="pp-fc-title">Team Collaboration</h4>
-              <p className="pp-fc-desc">Add team members, share audiences, segment activity, and manage multiple company workspaces.</p>
-            </div>
-          </div>
-          
-          <div className="pp-included-footer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-            Built to scale with you. Connect a CRM to keep your data perfectly in sync.
-          </div>
-        </section>
+                <div className="reply-compare-row reply-compare-row--logos">
+                  <div className="reply-compare-cell reply-compare-cell--left reply-compare-logos-wrap">
+                    <div className="reply-compare-logo-box reply-compare-logo-box--purple"><img src="/llm-logos/images.png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--blue"><img src="/llm-logos/images (1).png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--yellow"><img src="/llm-logos/3d-claude-ai-logo.jpg" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--gray"><img src="/llm-logos/Google_Gemini_icon_2025.svg.png" alt="AI app logo" /></div>
+                  </div>
+                  <div className="reply-compare-cell reply-compare-cell--feature">Unlimited Mailboxes</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
 
-        {/* FINAL CTA */}
-        <section className="pp-final-cta">
-          <div className="pp-cta-panel">
-            <div className="pp-cta-eyebrow">START FREE TRIAL</div>
-            <h2 className="pp-cta-heading">Try 360Airo Free — No Credit Card Required.</h2>
-            <p className="pp-cta-desc">Create your first campaign, connect an inbox, and explore AI-powered outreach in minutes. No credit card required.</p>
-            <Link href="/contact-us" className="pp-btn pp-btn-solid">Start Free Trial <span className="pp-cta-arrow">&rarr;</span></Link>
-            
-            <div className="pp-cta-trust">
-              <span><CheckIcon /> No credit card required</span>
-              <span><CheckIcon /> Cancel anytime</span>
-              <span><CheckIcon /> Setup in minutes</span>
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left reply-compare-logos-wrap">
+                    <div className="reply-compare-logo-box reply-compare-logo-box--blue"><img src="/llm-logos/images.png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--white"><img src="/llm-logos/images (1).png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--green"><img src="/llm-logos/3d-claude-ai-logo.jpg" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--purple"><img src="/llm-logos/Google_Gemini_icon_2025.svg.png" alt="AI app logo" /></div>
+                  </div>
+                  <div className="reply-compare-cell reply-compare-cell--feature">Unlimited Monthly Emails</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
+
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left reply-compare-logos-wrap">
+                    <div className="reply-compare-logo-box reply-compare-logo-box--purple"><img src="/llm-logos/Google_Gemini_icon_2025.svg.png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--gray"><img src="/llm-logos/images.png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--orange"><img src="/llm-logos/images (1).png" alt="AI app logo" /></div>
+                    <div className="reply-compare-logo-box reply-compare-logo-box--blue"><img src="/llm-logos/3d-claude-ai-logo.jpg" alt="AI app logo" /></div>
+                  </div>
+                  <div className="reply-compare-cell reply-compare-cell--feature">Unlimited Contacts Storage</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
+
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left" />
+                  <div className="reply-compare-cell reply-compare-cell--feature">Advanced Reporting</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
+
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left" />
+                  <div className="reply-compare-cell reply-compare-cell--feature">Inflated open rates</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                </div>
+
+                <div className="reply-compare-row">
+                  <div className="reply-compare-cell reply-compare-cell--left" />
+                  <div className="reply-compare-cell reply-compare-cell--feature">AI SDR</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--no">✕</div>
+                  <div className="reply-compare-cell reply-compare-status reply-compare-status--yes">✓</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ SHORTCUT */}
-        <div className="pp-faq-shortcut">
-          <a href="#">Questions about pricing, credits, or deliverability? View FAQ &rarr;</a>
-        </div>
+        <section className="reply-proof-section pp-animate-reveal">
+          <div className="reply-proof-shell">
+            <div className="reply-proof-badges">
+              <div className="reply-proof-badge reply-proof-badge--white">
+                <span className="reply-proof-badge-mark">G</span>
+                <span>High Performance</span>
+                <small>2025</small>
+              </div>
+              <div className="reply-proof-badge reply-proof-badge--white">
+                <span className="reply-proof-badge-mark">G</span>
+                <span>High Performance</span>
+                <small>2025</small>
+              </div>
+              <div className="reply-proof-badge reply-proof-badge--white">
+                <span className="reply-proof-badge-mark">G</span>
+                <span>High Performance</span>
+                <small>2025</small>
+              </div>
+              <div className="reply-proof-badge reply-proof-badge--white">
+                <span className="reply-proof-badge-mark">G</span>
+                <span>High Performance</span>
+                <small>2025</small>
+              </div>
+              <div className="reply-proof-badge reply-proof-badge--navy">
+                <span className="reply-proof-badge-mark">SOC 2</span>
+                <span>GDPR</span>
+                <small>Verified</small>
+              </div>
+              <div className="reply-proof-badge reply-proof-badge--navy">
+                <span className="reply-proof-badge-mark">A+</span>
+                <span>Advanced Email Deliverability</span>
+              </div>
+            </div>
+
+            <div className="reply-proof-headline-row">
+              <div className="reply-proof-headline">Top-rated on G2</div>
+              <div className="reply-proof-headline">Trustworthy and reliable</div>
+            </div>
+
+            <div className="reply-proof-stats">
+              <div className="reply-proof-stat">
+                <div className="reply-proof-value">10+</div>
+                <div className="reply-proof-label">years helping sales teams sell smarter</div>
+              </div>
+              <div className="reply-proof-stat">
+                <div className="reply-proof-value">3,000+</div>
+                <div className="reply-proof-label">companies worldwide</div>
+              </div>
+              <div className="reply-proof-stat">
+                <div className="reply-proof-value">4.6/5</div>
+                <div className="reply-proof-label">rating on G2</div>
+              </div>
+              <div className="reply-proof-stat">
+                <div className="reply-proof-value">1,448</div>
+                <div className="reply-proof-label">reviews on G2</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="reply-mini-plan-row pp-animate-reveal">
+          <div className="reply-mini-plan-card">
+            <div className="reply-mini-plan-price">Starts from $59</div>
+            <div className="reply-mini-plan-name">Email Volume</div>
+            <button type="button" className="reply-mini-plan-button">Start Free Trial</button>
+          </div>
+          <div className="reply-mini-plan-card">
+            <div className="reply-mini-plan-price">Starts from $99</div>
+            <div className="reply-mini-plan-name">Multichannel</div>
+            <button type="button" className="reply-mini-plan-button">Contact Sales</button>
+          </div>
+          <div className="reply-mini-plan-card">
+            <div className="reply-mini-plan-price">Starts from $5000</div>
+            <div className="reply-mini-plan-name">AI SDR</div>
+            <button type="button" className="reply-mini-plan-button">Contact Sales</button>
+          </div>
+          <div className="reply-mini-plan-card">
+            <div className="reply-mini-plan-price">Starts from $166</div>
+            <div className="reply-mini-plan-name">Agency</div>
+            <button type="button" className="reply-mini-plan-button">Contact Sales</button>
+          </div>
+        </section>
+
+        <section id="fundamentals" className="reply-fundamentals-section pp-animate-reveal">
+          <div className="reply-fundamentals-shell">
+            <div className="reply-fundamentals-header">
+              <span className="reply-fundamentals-icon">⚡</span>
+              <span>FUNDAMENTALS</span>
+            </div>
+
+            <div className="reply-fundamentals-table">
+              <div className="reply-fundamentals-row reply-fundamentals-row--head">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label"> </div>
+                <div className="reply-fundamentals-cell">Starts from 1,000 contacts</div>
+                <div className="reply-fundamentals-cell">Unlimited Contacts</div>
+                <div className="reply-fundamentals-cell">Starts from 1,000 contacts</div>
+                <div className="reply-fundamentals-cell">Adjustable</div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Mailboxes</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+                <div className="reply-fundamentals-cell">5 mailboxes / user</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Email warm-ups in Mailtoaster.ai</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+                <div className="reply-fundamentals-cell">5 mailboxes / user</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+                <div className="reply-fundamentals-cell">Unlimited</div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Email sequences</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">LinkedIn automation</div>
+                <div className="reply-fundamentals-cell">$69/month per account</div>
+                <div className="reply-fundamentals-cell">1 / user included</div>
+                <div className="reply-fundamentals-cell">1 / team included</div>
+                <div className="reply-fundamentals-cell">$69/month per account</div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Calls &amp; SMS</div>
+                <div className="reply-fundamentals-cell">$29/month per user</div>
+                <div className="reply-fundamentals-cell">1 / user included</div>
+                <div className="reply-fundamentals-cell">1 / user included</div>
+                <div className="reply-fundamentals-cell">$29/month per user</div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Unlimited Users</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--yes">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--no">✕</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--yes">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--yes">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Unlimited sequences</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Unlimited contact storage</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Unlimited emails monthly</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Unlimited Clients</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--no">✕</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--no">✕</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--no">✕</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check reply-fundamentals-check--yes">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Domain purchase</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+
+              <div className="reply-fundamentals-row">
+                <div className="reply-fundamentals-cell reply-fundamentals-cell--label">Agentic Chat</div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+                <div className="reply-fundamentals-cell"><span className="reply-fundamentals-check">✓</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="reply-sales-engagement-section pp-animate-reveal">
+          <div className="reply-sales-engagement-shell">
+            <div className="reply-sales-engagement-header">
+              <span className="reply-sales-engagement-icon">↕</span>
+              <span>SALES ENGAGEMENT</span>
+            </div>
+
+            <div className="reply-sales-engagement-table">
+              {salesEngagementFeatures.map(([feature, ...plans]) => (
+                <div className="reply-sales-engagement-row" key={feature}>
+                  <div className="reply-sales-engagement-cell reply-sales-engagement-cell--label">{feature}</div>
+                  {plans.map((plan, index) => (
+                    <div className="reply-sales-engagement-cell" key={`${feature}-${index}`}>
+                      {plan === 'check' ? (
+                        <span className="reply-sales-engagement-check">✓</span>
+                      ) : plan === 'no' ? (
+                        <span className="reply-sales-engagement-check reply-sales-engagement-check--no">×</span>
+                      ) : (
+                        plan
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="reply-feature-card-section pp-animate-reveal">
+          <ReplyFeatureCard title="LIVE DATA" icon="◉" variant="live-data" features={liveDataFeatures} />
+          <ReplyFeatureCard title="DELIVERABILITY" icon="➤" variant="deliverability" features={deliverabilityFeatures} />
+        </section>
+
+        <section className="reply-sales-comparison-section pp-animate-reveal">
+          <div className="reply-sales-comparison-wrapper">
+            <div className="reply-sales-comparison-header">
+              <span className="reply-sales-comparison-icon reply-sales-comparison-icon--orange">+</span>
+              <span>ADDONS</span>
+            </div>
+
+            <div className="reply-sales-comparison-table">
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Mailboxes</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+                <div className="reply-sales-comparison-cell">5 mailboxes / user</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Domain purchase</div>
+                <div className="reply-sales-comparison-cell">Available</div>
+                <div className="reply-sales-comparison-cell">Available</div>
+                <div className="reply-sales-comparison-cell">Available</div>
+                <div className="reply-sales-comparison-cell">Available</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Email warm-ups in Mailtoaster.ai</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+                <div className="reply-sales-comparison-cell">5 mailboxes / user</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+                <div className="reply-sales-comparison-cell">Unlimited</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">LinkedIn automation</div>
+                <div className="reply-sales-comparison-cell">$69/month per account</div>
+                <div className="reply-sales-comparison-cell">1 / user included</div>
+                <div className="reply-sales-comparison-cell">1 / team included</div>
+                <div className="reply-sales-comparison-cell">$69/month per account</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Email search extension</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Website visitors tracking</div>
+                <div className="reply-sales-comparison-cell">200 Website visitors /mo included</div>
+                <div className="reply-sales-comparison-cell">200 Website visitors /mo included</div>
+                <div className="reply-sales-comparison-cell">200 Website visitors /mo included</div>
+                <div className="reply-sales-comparison-cell">200 Website visitors /mo included</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Email validation</div>
+                <div className="reply-sales-comparison-cell">start from $20/month</div>
+                <div className="reply-sales-comparison-cell">start from $20/month</div>
+                <div className="reply-sales-comparison-cell">start from $20/month</div>
+                <div className="reply-sales-comparison-cell">start from $20/month</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Dialer and Cloud Calls</div>
+                <div className="reply-sales-comparison-cell">$29/month per user</div>
+                <div className="reply-sales-comparison-cell">1 / user included</div>
+                <div className="reply-sales-comparison-cell">1 / user included</div>
+                <div className="reply-sales-comparison-cell">$29/month per user</div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Live Data</div>
+                <div className="reply-sales-comparison-cell">50 credits + paid packages</div>
+                <div className="reply-sales-comparison-cell">50 credits + paid packages</div>
+                <div className="reply-sales-comparison-cell">50 credits + paid packages</div>
+                <div className="reply-sales-comparison-cell">50 credits + paid packages</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="reply-sales-comparison-wrapper reply-sales-comparison-wrapper--ai">
+            <div className="reply-sales-comparison-header reply-sales-comparison-header--ai">
+              <span className="reply-sales-comparison-icon reply-sales-comparison-icon--purple">AI</span>
+              <span>AI</span>
+            </div>
+
+            <div className="reply-sales-comparison-table">
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">
+                  AI generated ICP <span className="reply-sales-comparison-badge">New</span>
+                </div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">
+                  Real time B2B data by Apollo <span className="reply-sales-comparison-badge">New</span>
+                </div>
+                <div className="reply-sales-comparison-cell">start at $39/months</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check reply-sales-check--danger">×</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">AI reply categorization</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">AI-generated icebreakers</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">Personalized first-step emails</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">AI sequence builder</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+              </div>
+
+              <div className="reply-sales-comparison-row">
+                <div className="reply-sales-comparison-cell reply-sales-comparison-cell--label">AI reply handling</div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+                <div className="reply-sales-comparison-cell"><span className="reply-sales-check">✓</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="reply-feature-card-section pp-animate-reveal">
+          <ReplyFeatureCard title="INTEGRATIONS" icon="♣" variant="integrations" features={integrationFeatures} />
+          <ReplyFeatureCard title="ONBOARDING & SUPPORT" icon="◉" variant="support" features={supportFeatures} />
+        </section>
+
+        <section className="reply-custom-faq-section pp-animate-reveal">
+          <div className="reply-custom-solution-card">
+            <div className="reply-custom-solution-copy">
+              <h2>Looking for a custom<br />solution or have<br />questions?</h2>
+              <p>For teams of 20+, our enhanced API, Whitelabel, and customized<br />solutions offer tailored solutions to meet your specific requirements.<br />Contact us today to learn more.</p>
+              <button type="button" className="reply-custom-solution-button">Chat with us</button>
+            </div>
+            <div className="reply-custom-solution-art" aria-hidden="true">
+              <span className="reply-custom-art-shape reply-custom-art-shape--white" />
+              <span className="reply-custom-art-shape reply-custom-art-shape--light" />
+              <span className="reply-custom-art-shape reply-custom-art-shape--top" />
+              <span className="reply-custom-art-shape reply-custom-art-shape--bottom" />
+            </div>
+          </div>
+
+          <div className="reply-faq-card">
+            <div className="reply-faq-eyebrow">BOOST YOUR SALES WITH REPLY</div>
+            <h2>Frequently Asked Questions</h2>
+            <div className="reply-faq-list">
+              {pricingFaqs.map(([question, answer], index) => (
+                <div className={`reply-faq-item ${openFaq === index ? 'open' : ''}`} key={question}>
+                  <button
+                    type="button"
+                    className="reply-faq-question"
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                    aria-expanded={openFaq === index}
+                  >
+                    <span>{question}</span>
+                    <span className="reply-faq-chevron">⌄</span>
+                  </button>
+                  {openFaq === index && <p className="reply-faq-answer">{answer}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
       </main>
 
