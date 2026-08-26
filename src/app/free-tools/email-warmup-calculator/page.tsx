@@ -37,7 +37,7 @@ export default function WarmupCalculatorPage() {
         ". Build Domain Reputation",
         ". Establish Sending History",
         ". Prevent Account Suspension",
-        ". Ensure Campaign Success"
+        ". Ensure Campaign Success"   
       ]
     },
     {
