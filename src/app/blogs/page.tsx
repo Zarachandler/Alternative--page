@@ -433,7 +433,24 @@ export default function BlogsPage() {
         </div>
 
         <section className="px-4 pb-16">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto flex max-w-7xl gap-8">
+            <aside className="hidden w-56 shrink-0 lg:block">
+              <div className="sticky top-28">
+                <div className="minimal-search-box-light mb-8">
+                  <Search className="h-4 w-4 text-blue-400" />
+                  <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search" className="w-full bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-500" />
+                </div>
+                <h2 className="border-l-[3px] border-sky-500 pl-3 text-xl font-bold text-gray-900">Categories</h2>
+                <nav className="mt-5 flex flex-col gap-4 text-lg text-slate-600">
+                  <Link href="/blogs" className="font-semibold text-sky-600">All Blogs</Link>
+                  <Link href="/alternative">Alternative</Link>
+                  <Link href="/startups">Startups</Link>
+                  <Link href="/comparison">Comparison</Link>
+                  <Link href="/sms">SMS</Link>
+                </nav>
+              </div>
+            </aside>
+            <div className="min-w-0 flex-1">
             <div className="blog-grid">
               {gridPosts.map((post) => (
                 <div
@@ -468,6 +485,7 @@ export default function BlogsPage() {
                   </Link>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </section>
