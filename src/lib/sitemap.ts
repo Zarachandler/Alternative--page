@@ -1,7 +1,7 @@
 export const BASE_URL = 'https://360airo.com';
 
-export function getBaseUrl(request: Request) {
-  return new URL(request.url).origin;
+export function getBaseUrl(_request: Request) {
+  return BASE_URL;
 }
 
 export function xmlResponse(body: string) {

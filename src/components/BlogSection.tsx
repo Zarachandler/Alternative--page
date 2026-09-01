@@ -13,31 +13,6 @@ interface Blog {
 }
 
 const blogs: Blog[] = [
-  {
-    id: 1,
-    title:
-      "Smarter Outreach, On Your Terms with Approval Mode, AI Model Selection, and More",
-    slug: "Transforming-Sales-Prospecting",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80",
-  },
-  {
-    id: 2,
-    title:
-      "12+ AI Prospecting Tools You Need for Effortless Lead Hunting in 2026",
-    slug: "Sales-Outreach-Platform",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
-  },
-  {
-    id: 3,
-    title:
-      "2026 Guide to Using AI for Business Development Strategy",
-    slug: "Inbound-Sales-Automation",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-  },
-
   /* Add more blogs below */
 
   {

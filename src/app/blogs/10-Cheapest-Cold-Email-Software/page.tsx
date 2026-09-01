@@ -995,32 +995,7 @@ export default function BlogColdEmailPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  title: 'How AI Prospecting Improves Sales Efficiency',
-                  tag: 'AI Sales',
-                  href: '/blogs/ai-prospecting-sales-efficiency',
-                  description: 'Read this next to go deeper into modern sales workflows.',
-                  image:
-                    'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80',
-                },
-                {
-                  title: 'Why Modern Sales Teams Need Better Prospecting Workflows',
-                  tag: 'Sales Prospecting',
-                  href: '/blogs/better-prospecting-workflows',
-                  description: 'Read this next to go deeper into modern sales workflows.',
-                  image:
-                    'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
-                },
-                {
-                  title: 'CRM Integration Best Practices for Outreach Teams',
-                  tag: 'CRM Integration',
-                  href: '/blogs/crm-integration-best-practices',
-                  description: 'Read this next to go deeper into modern sales workflows.',
-                  image:
-                    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-                },
-              ].map((post) => (
+              {[].map((post) => (
                 <a
                   key={post.href}
                   href={post.href}

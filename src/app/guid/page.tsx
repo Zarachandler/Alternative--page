@@ -28,16 +28,7 @@ export default function GuidPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const categoriesRef = useRef<HTMLDivElement>(null);
 
-  const visiblePosts = useMemo(() => {
-    return guidPosts.filter(
-      (post) =>
-        post.slug !== 'Transforming-Sales-Prospecting' &&
-        post.slug !== 'Sales-Outreach-Platform' &&
-        post.slug !== 'Inbound-Sales-Automation' &&
-        post.slug !== '10-Cheapest-Cold-Email-Software' &&
-        post.slug !== 'Free-Email-Deliverability-Test'
-    );
-  }, []);
+  const visiblePosts = useMemo(() => guidPosts, []);
 
   const filteredPosts = useMemo(() => {
     let posts = visiblePosts;

@@ -21,6 +21,7 @@ import { useMemo, useRef, useState } from 'react';
 import '../../styles/blogs.css';
 import '../../styles/customer-stories.css';
 import FeatureMarquee from '../../components/FeatureMarquee';
+import { blogCategories } from './blog-categories';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -36,57 +37,6 @@ const itemVariants = {
 };
 
 const blogPosts = [
-  {
-    id: 1,
-    title: 'A Complete Guide for Modern Sales Teams',
-    excerpt:
-      'Sales prospecting has always been one of the most challenging parts of the sales process.',
-    slug: 'Transforming-Sales-Prospecting',
-    author: '360Airo Team',
-    date: 'December 3, 2025',
-    readTime: '6 min read',
-    category: 'Email Tools',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: true,
-    views: '2.8K',
-    tags: ['Email Calculator', 'Deliverability', 'Cold Email'],
-  },
-  {
-    id: 2,
-    title: '10 Cheapest Cold Email Software Tools for Startups & Agencies (2026 Guide)',
-    excerpt:
-      'Cold email remains one of the most cost-effective growth channels for startups and agencies. Discover the 10 most affordable tools.',
-    slug: 'Sales-Outreach-Platform',
-    author: '360Airo Team',
-    date: 'November 15, 2025',
-    readTime: '10 min read',
-    category: 'Cold Email',
-    image:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '4.1K',
-    tags: ['Cold Email', 'Software Tools'],
-  },
-  {
-    id: 3,
-    title: 'Free Email Verification: How to Verify Email Addresses for Free with 360Airo',
-    excerpt:
-      'Clean your email lists, protect sender reputation, and improve outreach results before sending a single email.',
-    slug: 'Inbound-Sales-Automation',
-    author: '360Airo Team',
-    date: 'October 25, 2025',
-    readTime: '8 min read',
-    category: 'Email Marketing',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '3.2K',
-    tags: ['Email Verification', 'Deliverability'],
-  },
   {
     id: 4,
     title: 'LinkedIn Outreach Strategy That Converts: Step-by-Step Playbook for 2025',
@@ -104,77 +54,6 @@ const blogPosts = [
     views: '1.8K',
     tags: ['LinkedIn', 'Outreach'],
   },
-  {
-    id: 5,
-    title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
-    excerpt:
-      'Cold outreach today is about precision, personalization, and performance. Discover the tools that actually get responses.',
-    slug: 'SDR-Workflow-Automation-Guide',
-    author: 'Sarah Chen',
-    date: 'October 23, 2025',
-    readTime: '8 min read',
-    category: 'Cold Email',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '2.4K',
-    tags: ['Cold Email', 'Sales Tools'],
-  },
-  {
-    id: 6,
-    title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
-    excerpt:
-      'Cold outreach today is about precision, personalization, and performance. Discover the tools that actually get responses.',
-    slug: 'Free-Email-Verification',
-    author: 'Sarah Chen',
-    date: 'October 23, 2025',
-    readTime: '8 min read',
-    category: 'Cold Email',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '2.4K',
-    tags: ['Cold Email', 'Sales Tools'],
-  },
-
-    {
-    id: 7,
-    title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
-    excerpt:
-      'Cold outreach today is about precision, personalization, and performance. Discover the tools that actually get responses.',
-    slug: 'Free-SPF-Record-Generator',
-    author: 'Sarah Chen',
-    date: 'October 23, 2025',
-    readTime: '8 min read',
-    category: 'Cold Email',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '2.4K',
-    tags: ['Cold Email', 'Sales Tools'],
-  },
-
-    {
-    id: 8,
-    title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
-    excerpt:
-      'Cold outreach today is about precision, personalization, and performance. Discover the tools that actually get responses.',
-    slug: 'Free-Email-Mailbox-Calculator',
-    author: 'Sarah Chen',
-    date: 'October 23, 2025',
-    readTime: '8 min read',
-    category: 'Cold Email',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    featured: true,
-    isNew: false,
-    views: '2.4K',
-    tags: ['Cold Email', 'Sales Tools'],
-  },
-
     {
     id: 9,
     title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
@@ -193,7 +72,7 @@ const blogPosts = [
     tags: ['Cold Email', 'Sales Tools'],
   },
 
- {
+  {
     id: 10,
     title: 'Top Cold Email Tools in 2025: Which One Actually Delivers Replies?',
     excerpt:
@@ -211,19 +90,91 @@ const blogPosts = [
     tags: ['Cold Email', 'Sales Tools'],
   },
 
+  {
+    id: 11,
+    title: 'Your prospects are busy.',
+    excerpt:
+      "Their inboxes are crowded. Their calendars are full. And every day, they're flooded with emails, calls, and LinkedIn messages competing for attention.",
+    slug: 'SMS-Outreach-Best-Practices',
+    author: '360Airo Team',
+    date: 'August 31, 2026',
+    readTime: '8 min read',
+    category: 'SMS',
+    image:
+      'https://images.unsplash.com/photo-1525598912003-663126343e1f?auto=format&fit=crop&w=1000&q=80',
+    featured: false,
+    isNew: true,
+    views: '0',
+    tags: ['SMS', 'Sales Outreach'],
+  },
+
+  {
+    id: 12,
+    title: 'Sales Intelligence Software for Small Businesses',
+    excerpt:
+      'Sales intelligence software helps small businesses find the proper prospects, understand their needs, recognize buying signals, enhance their contact information, and improve the sales pipeline.',
+    slug: 'Sales-Intelligence-for-Small-Businesses',
+    author: '360Airo Team',
+    date: 'August 31, 2026',
+    readTime: '10 min read',
+    category: 'Startup',
+    image:
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80',
+    featured: false,
+    isNew: true,
+    views: '0',
+    tags: ['Startup', 'Sales Intelligence'],
+  },
+
+  {
+    id: 13,
+    title: 'How Sales Intelligence Helps SMBs Find Better Leads',
+    excerpt:
+      'Sales intelligence enables SMBs to generate more effective leads through precise prospect information, lead enrichment, buying cues, and AI-based prospecting.',
+    slug: 'How-Sales-Intelligence-Improves-Lead-Generation-for-SMBs',
+    author: '360Airo Team',
+    date: 'August 31, 2026',
+    readTime: '10 min read',
+    category: 'Startup',
+    image:
+      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80',
+    featured: false,
+    isNew: true,
+    views: '0',
+    tags: ['Startup', 'Lead Generation'],
+  },
+
+  {
+    id: 14,
+    title: 'Why Startups Need AI-Powered Outbound Email Campaigns',
+    excerpt:
+      'Find the right prospects, personalize every email with AI, automate follow-ups, and build pipeline without increasing manual work.',
+    slug: 'startup-outbound-email-campaign',
+    author: '360Airo Team',
+    date: 'August 31, 2026',
+    readTime: '10 min read',
+    category: 'Startup',
+    image:
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80',
+    featured: false,
+    isNew: true,
+    views: '0',
+    tags: ['Startup', 'Outbound Email', 'AI'],
+  },
+
   
 ];
 
-export default function BlogsPage() {
+type BlogsPageProps = {
+  initialCategory?: string;
+};
+
+export function BlogsPageContent({ initialCategory = 'All' }: BlogsPageProps) {
   const categories = [
-    'All',
-    'Cold Email',
-    'Email Marketing',
-    'LinkedIn',
-    'Email Tools'
+    ...blogCategories,
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const selectedCategory = initialCategory;
   const [searchQuery, setSearchQuery] = useState('');
   const categoriesRef = useRef<HTMLDivElement>(null);
 
@@ -376,14 +327,13 @@ export default function BlogsPage() {
                   className="scrollbar-hide flex items-center gap-6 overflow-x-auto whitespace-nowrap"
                 >
                   {categories.map((cat) => (
-                    <button
+                    <Link
                       key={cat}
-                      type="button"
-                      onClick={() => setSelectedCategory(cat)}
+                      href={cat === 'All' ? '/blogs' : `/blogs/category/${cat.toLowerCase().replace(/\s+/g, '-')}`}
                       className={`minimal-tab-btn-light ${selectedCategory === cat ? 'active' : ''}`}
                     >
                       {cat}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -520,4 +470,8 @@ export default function BlogsPage() {
       `}</style>
     </div>
   );
+}
+
+export default function BlogsPage() {
+  return <BlogsPageContent />;
 }
